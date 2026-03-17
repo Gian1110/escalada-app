@@ -87,19 +87,21 @@ export default function Layout() {
         @media (max-width: 768px) {
           .sidebar-desktop { display: none; }
           .topbar-mobile {
-            display: flex; align-items: center; justify-content: space-between;
-            height: 52px; padding: 0 1rem;
-            background: var(--rock-mid); border-bottom: 1px solid var(--rock-border);
-            position: sticky; top: 0; z-index: 60;
+            display: flex; align-items: center;
+            height: 48px; padding: 0 0.75rem;
+            background: transparent;
+            position: fixed; top: 0; left: 0; z-index: 60;
           }
           .topbar-logo {
             font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em;
           }
           .hamburger-btn {
-            background: none; border: none; color: var(--chalk); cursor: pointer;
-            padding: 6px; border-radius: var(--r); display: flex; align-items: center;
+            background: rgba(20,20,18,0.75); border: 1px solid var(--rock-border);
+            color: var(--chalk); cursor: pointer;
+            padding: 7px; border-radius: var(--r); display: flex; align-items: center;
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
           }
-          .hamburger-btn:hover { background: var(--rock-surf); }
+          .hamburger-btn:hover { background: rgba(46,46,43,0.9); }
 
           /* Overlay oscuro */
           .drawer-overlay {
@@ -123,6 +125,7 @@ export default function Layout() {
           }
           .sidebar-drawer.open { transform: translateX(0); }
           .close-btn { display: flex !important; }
+          .main-content { padding-top: 0; }
         }
       `}</style>
 
@@ -151,7 +154,7 @@ export default function Layout() {
         </aside>
 
         {/* Main content */}
-        <main style={{ flex: 1, minWidth: 0 }}>
+        <main style={{ flex: 1, minWidth: 0 }} className="main-content">
           <Outlet />
         </main>
 
