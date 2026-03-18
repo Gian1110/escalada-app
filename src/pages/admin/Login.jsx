@@ -66,12 +66,7 @@ export default function Login() {
         </form>
       </Card>
 
-      <div style={{ background: 'var(--gold-dim)', border: '1px solid rgba(200,154,42,0.22)', borderRadius: 'var(--r)', padding: '0.7rem 0.9rem', fontSize: '11px', color: 'var(--chalk-muted)', lineHeight: 1.6, marginTop: '1rem' }}>
-        <strong style={{ color: 'var(--gold)' }}>Para crear tu usuario admin:</strong><br />
-        1. Ir a supabase.com → tu proyecto → Authentication → Users<br />
-        2. Click en "Add user" → ingresá email y contraseña<br />
-        3. Usá esas credenciales acá
-      </div>
+
     </div>
   )
 }

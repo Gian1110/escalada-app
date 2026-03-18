@@ -44,8 +44,6 @@ export default function Layout() {
       <nav style={{ padding: '0.6rem 0', flex: 1, overflowY: 'auto' }}>
         <SbSection>Publico</SbSection>
         <SbLink to="/"><HomeIcon /> Inicio</SbLink>
-        <SbLink to="/rutas"><RoutesIcon /> Ver rutas</SbLink>
-
         <SbSection style={{ marginTop: '0.4rem' }}>Administracion</SbSection>
         <SbLink to="/admin/nueva"><PlusIcon /> Agregar ruta</SbLink>
         <SbLink to="/admin/gestionar"><ListIcon /> Gestionar rutas</SbLink>
