@@ -152,7 +152,11 @@ export default function AdminGestionar() {
   const thSt = { textAlign: 'left', color: 'var(--chalk-muted)', fontWeight: 400, fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.45rem 0.7rem', borderBottom: '1px solid var(--rock-border)' }
   const tdSt = { padding: '0.6rem 0.7rem', borderBottom: '1px solid rgba(255,255,255,0.028)', verticalAlign: 'middle' }
 
-  const viasFilt = vias.filter(v => (!filtProv || v.lugar_id === filtProv) && (!filtLugar || v.lugar_id === filtLugar) && (!filtGrupo || v.grupo_id === filtGrupo))
+  const lugarIdsDeProv = filtProv ? lugares.map(l => l.id) : []
+  const viasFilt = vias.filter(v =>
+    (!filtProv || (filtLugar ? v.lugar_id === filtLugar : lugarIdsDeProv.includes(v.lugar_id))) &&
+    (!filtGrupo || v.grupo_id === filtGrupo)
+  )
 
   return (
     <Page>

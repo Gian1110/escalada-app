@@ -152,8 +152,13 @@ export default function Layout() {
         </aside>
 
         {/* Main content */}
-        <main style={{ flex: 1, minWidth: 0 }} className="main-content">
-          <Outlet />
+        <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }} className="main-content">
+          <div style={{ flex: 1 }}>
+            <Outlet />
+          </div>
+          <footer style={{ borderTop: '1px solid var(--rock-border)', padding: '1rem 1.5rem', textAlign: 'center', fontSize: '11px', color: 'var(--chalk-muted)', letterSpacing: '0.06em' }}>
+            developed by <span style={{ color: 'var(--accent)' }}>Gian</span>
+          </footer>
         </main>
 
       </div>
