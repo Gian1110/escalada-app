@@ -31,9 +31,9 @@ export default function Layout() {
       <div style={{ padding: '1.2rem 1.2rem 1rem', borderBottom: '1px solid var(--rock-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '1.4rem', letterSpacing: '0.06em' }}>
-            <span style={{ color: 'var(--accent)' }}>Escalada</span>NOA
+            <span style={{ color: 'var(--accent)' }}>ESCALADA</span>-ARGENTINA
           </div>
-          <div style={{ fontSize: '10px', color: 'var(--chalk-muted)', marginTop: '2px' }}>Guia · Tucuman</div>
+          <div style={{ fontSize: '10px', color: 'var(--chalk-muted)', marginTop: '2px' }}>Guia · Argentina</div>
         </div>
         {/* Boton cerrar solo en mobile */}
         <button onClick={() => setOpen(false)} style={{ display: 'none', background: 'none', border: 'none', color: 'var(--chalk-muted)', cursor: 'pointer', padding: '4px' }} className="close-btn">
