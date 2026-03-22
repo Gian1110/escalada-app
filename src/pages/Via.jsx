@@ -27,6 +27,7 @@ export default function ViaPage() {
   const barW = Math.min(100, ((via.grado_n || 0) / 92) * 100)
   const autoUrl = grupo?.auto_url || lugar?.maps_url
   const acampeUrl = grupo?.acampe_url
+  const pieViaUrl = via.pie_via_url
 
   return (
     <Page>
@@ -63,6 +64,7 @@ export default function ViaPage() {
           {(via.express_min || via.express_rec) && <MetaMini label="Express mín/rec">{via.express_min || '—'}/{via.express_rec || '—'}</MetaMini>}
           {autoUrl && <MetaMini label="Último punto auto"><a href={autoUrl} target="_blank" rel="noopener" style={{ color: 'var(--sky-l)' }}>📍 Maps</a></MetaMini>}
           {acampeUrl && <MetaMini label="Acampe"><a href={acampeUrl} target="_blank" rel="noopener" style={{ color: 'var(--sky-l)' }}>⛺ Maps</a></MetaMini>}
+          {pieViaUrl && <MetaMini label="Pie de vía"><a href={pieViaUrl} target="_blank" rel="noopener" style={{ color: 'var(--accent-h)' }}>🥾 Maps</a></MetaMini>}
         </div>
       </div>
 

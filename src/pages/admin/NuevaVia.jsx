@@ -57,7 +57,7 @@ export default function NuevaVia() {
   const [ngFile, setNgFile] = useState(null); const [ngPreview, setNgPreview] = useState('')
 
   // Vía
-  const [via, setVia] = useState({ nombre: '', numero: '', equipador: '', temporada: '', grado: '', gradoN: 0, tipo: 'Deportiva', expressMin: '', expressRec: '', tiempo: '', chapas: '', largo: '', videoVia: '', videoAprox: '', notas: '' })
+  const [via, setVia] = useState({ nombre: '', numero: '', equipador: '', temporada: '', grado: '', gradoN: 0, tipo: 'Deportiva', expressMin: '', expressRec: '', tiempo: '', chapas: '', largo: '', pieViaUrl: '', videoVia: '', videoAprox: '', notas: '' })
   const [viaFile, setViaFile] = useState(null); const [viaPreview, setViaPreview] = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -120,9 +120,9 @@ export default function NuevaVia() {
     setSaving(true)
     try {
       let img = null; if (viaFile) img = await uploadImage(viaFile, 'imagenes')
-      await createVia({ lugar_id: lugarId, grupo_id: grupoId, nombre: via.nombre, numero: parseInt(via.numero) || null, equipador: via.equipador, temporada: via.temporada, grado: via.grado, grado_n: via.gradoN, tipo: via.tipo, express_min: parseInt(via.expressMin) || null, express_rec: parseInt(via.expressRec) || null, tiempo: via.tiempo, chapas: via.chapas, largo: via.largo, video_via: ytEmbed(via.videoVia), video_aprox: ytEmbed(via.videoAprox), notas: via.notas, imagen: img })
+      await createVia({ lugar_id: lugarId, grupo_id: grupoId, nombre: via.nombre, numero: parseInt(via.numero) || null, equipador: via.equipador, temporada: via.temporada, grado: via.grado, grado_n: via.gradoN, tipo: via.tipo, express_min: parseInt(via.expressMin) || null, express_rec: parseInt(via.expressRec) || null, tiempo: via.tiempo, chapas: via.chapas, largo: via.largo, pie_via_url: via.pieViaUrl || null, video_via: ytEmbed(via.videoVia), video_aprox: ytEmbed(via.videoAprox), notas: via.notas, imagen: img })
       toast(`Vía "${via.nombre}" guardada`, 'ok')
-      setVia({ nombre: '', numero: '', equipador: '', temporada: '', grado: '', gradoN: 0, tipo: 'Deportiva', expressMin: '', expressRec: '', tiempo: '', chapas: '', largo: '', videoVia: '', videoAprox: '', notas: '' })
+      setVia({ nombre: '', numero: '', equipador: '', temporada: '', grado: '', gradoN: 0, tipo: 'Deportiva', expressMin: '', expressRec: '', tiempo: '', chapas: '', largo: '', pieViaUrl: '', videoVia: '', videoAprox: '', notas: '' })
       setViaFile(null); setViaPreview('')
     } catch (e) { toast('Error al guardar la vía', 'err'); console.error(e) }
     finally { setSaving(false) }
@@ -280,6 +280,13 @@ export default function NuevaVia() {
             <Field label="Largo total"><Input value={via.largo} onChange={e => setV('largo', e.target.value)} placeholder="Ej: 25m" /></Field>
           </div>
           <Divider />
+          <div style={{ fontSize: '10px', color: 'var(--chalk-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.65rem' }}>Acceso</div>
+          <div style={g2}>
+            <Field label="Google Maps – pie de vía" hint="Punto exacto donde empieza la vía">
+              <Input type="url" value={via.pieViaUrl} onChange={e => setV('pieViaUrl', e.target.value)} placeholder="https://maps.google.com/?q=..." />
+            </Field>
+          </div>
+          <Divider />
           <div style={{ fontSize: '10px', color: 'var(--chalk-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.65rem' }}>Multimedia</div>
           <div style={g2}>
             <ImageUploader label="Imagen con puntos de enganche" hint="Se sube a Supabase Storage" file={viaFile} preview={viaPreview}
@@ -296,7 +303,7 @@ export default function NuevaVia() {
           </div>
           <div style={{ display: 'flex', gap: '0.6rem', marginTop: '1.25rem' }}>
             <Button variant="primary" onClick={handleGuardarVia} disabled={saving}>{saving ? 'Guardando...' : 'Guardar vía'}</Button>
-            <Button variant="ghost" onClick={() => { setVia({ nombre: '', numero: '', equipador: '', temporada: '', grado: '', gradoN: 0, tipo: 'Deportiva', expressMin: '', expressRec: '', tiempo: '', chapas: '', largo: '', videoVia: '', videoAprox: '', notas: '' }); setViaFile(null); setViaPreview('') }}>Limpiar</Button>
+            <Button variant="ghost" onClick={() => { setVia({ nombre: '', numero: '', equipador: '', temporada: '', grado: '', gradoN: 0, tipo: 'Deportiva', expressMin: '', expressRec: '', tiempo: '', chapas: '', largo: '', pieViaUrl: '', videoVia: '', videoAprox: '', notas: '' }); setViaFile(null); setViaPreview('') }}>Limpiar</Button>
           </div>
         </Card>
       </div>

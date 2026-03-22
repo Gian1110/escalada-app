@@ -69,7 +69,7 @@ export default function AdminGestionar() {
         if (type === 'provincia') await updateProvincia(item.id, { nombre: updates.nombre, descripcion: updates.descripcion, imagen: updates.imagen })
         if (type === 'lugar')    await updateLugar(item.id, { nombre: updates.nombre, zona: updates.zona, descripcion: updates.descripcion, maps_url: updates.maps_url, imagen: updates.imagen })
         if (type === 'grupo')    await updateGrupo(item.id, { nombre: updates.nombre, descripcion: updates.descripcion, altitud: updates.altitud, auto_url: updates.auto_url, acampe_url: updates.acampe_url, acampe_obs: updates.acampe_obs, imagen: updates.imagen })
-        if (type === 'via')      await updateVia(item.id, { nombre: updates.nombre, numero: parseInt(updates.numero) || null, equipador: updates.equipador, temporada: updates.temporada, grado: updates.grado, grado_n: updates.grado_n, tipo: updates.tipo, express_min: parseInt(updates.express_min) || null, express_rec: parseInt(updates.express_rec) || null, tiempo: updates.tiempo, chapas: updates.chapas, largo: updates.largo, video_via: updates.video_via, video_aprox: updates.video_aprox, notas: updates.notas, imagen: updates.imagen })
+        if (type === 'via')      await updateVia(item.id, { nombre: updates.nombre, numero: parseInt(updates.numero) || null, equipador: updates.equipador, temporada: updates.temporada, grado: updates.grado, grado_n: updates.grado_n, tipo: updates.tipo, express_min: parseInt(updates.express_min) || null, express_rec: parseInt(updates.express_rec) || null, tiempo: updates.tiempo, chapas: updates.chapas, largo: updates.largo, pie_via_url: updates.pie_via_url, video_via: updates.video_via, video_aprox: updates.video_aprox, notas: updates.notas, imagen: updates.imagen })
         toast('Guardado', 'ok'); onSaved(updates)
       } catch (e) { toast('Error al guardar', 'err'); console.error(e) }
       finally { setSaving(false) }
@@ -118,6 +118,7 @@ export default function AdminGestionar() {
               </Field>
               <Field label="Video – vía"><Input type="url" value={form.video_via || ''} onChange={e => set('video_via', e.target.value)} placeholder="https://youtu.be/..." /></Field>
               <Field label="Video – aproximación"><Input type="url" value={form.video_aprox || ''} onChange={e => set('video_aprox', e.target.value)} placeholder="https://youtu.be/..." /></Field>
+              <Field label="Google Maps – pie de vía"><Input type="url" value={form.pie_via_url || ''} onChange={e => set('pie_via_url', e.target.value)} placeholder="https://maps.google.com/?q=..." /></Field>
               <Field label="Notas"><Textarea value={form.notas || ''} onChange={e => set('notas', e.target.value)} rows={2} /></Field>
             </>}
 

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import InstallBanner from './InstallBanner.jsx'
+import OfflineBanner from './OfflineBanner.jsx'
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../lib/auth.jsx'
 
@@ -162,6 +164,8 @@ export default function Layout() {
         </main>
 
       </div>
+      <InstallBanner />
+      <OfflineBanner />
     </>
   )
 }

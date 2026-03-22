@@ -47,6 +47,9 @@ export default function GrupoPage() {
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           <InfoChip label="Vías">{vias.length}</InfoChip>
           {rango && <InfoChip label="Rango">{rango}</InfoChip>}
+          {grupo.altitud && <InfoChip label="Altitud">{grupo.altitud}</InfoChip>}
+          {grupo.auto_url && <InfoChip label="Último punto auto"><a href={grupo.auto_url} target="_blank" rel="noopener" style={{ color: 'var(--sky-l)' }}>📍 Maps</a></InfoChip>}
+          {grupo.acampe_url && <InfoChip label="Acampe"><a href={grupo.acampe_url} target="_blank" rel="noopener" style={{ color: 'var(--sky-l)' }}>⛺ Maps</a></InfoChip>}
         </div>
       </div>
 
