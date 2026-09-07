@@ -83,7 +83,7 @@ export default function NuevaVia() {
   async function handleCrearProvincia() {
     if (!np.nombre.trim()) { toast('El nombre es obligatorio', 'err'); return }
     try {
-      let img = null; if (npFile) img = await uploadImage(npFile, 'imagenes')
+      let img = null; if (npFile) img = await uploadImage(npFile)
       const nuevo = await createProvincia({ nombre: np.nombre, descripcion: np.descripcion, imagen: img })
       await loadProvincias(); setShowNuevaProvincia(false); onProvinciaChange(nuevo.id)
       setNp({ nombre: '', descripcion: '' }); setNpFile(null); setNpPreview('')
@@ -94,7 +94,7 @@ export default function NuevaVia() {
   async function handleCrearLugar() {
     if (!nl.nombre.trim()) { toast('El nombre es obligatorio', 'err'); return }
     try {
-      let img = null; if (nlFile) img = await uploadImage(nlFile, 'imagenes')
+      let img = null; if (nlFile) img = await uploadImage(nlFile)
       const nuevo = await createLugar({ provincia_id: provinciaId, nombre: nl.nombre, zona: nl.zona, descripcion: nl.descripcion, maps_url: nl.mapsUrl || null, imagen: img })
       setLugares(ls => [...ls, nuevo]); setLugarId(nuevo.id); onLugarChange(nuevo.id)
       setShowNuevoLugar(false); setNl({ nombre: '', zona: '', descripcion: '', mapsUrl: '' }); setNlFile(null); setNlPreview('')
@@ -105,7 +105,7 @@ export default function NuevaVia() {
   async function handleCrearGrupo() {
     if (!ng.nombre.trim()) { toast('El nombre es obligatorio', 'err'); return }
     try {
-      let img = null; if (ngFile) img = await uploadImage(ngFile, 'imagenes')
+      let img = null; if (ngFile) img = await uploadImage(ngFile)
       const nuevo = await createGrupo({ lugar_id: lugarId, nombre: ng.nombre, descripcion: ng.descripcion, auto_url: ng.autoUrl || null, acampe_url: ng.acampeUrl || null, altitud: ng.altitud || null, acampe_obs: ng.acampeObs || null, imagen: img })
       setGrupos(g => [...g, nuevo]); setGrupoId(nuevo.id)
       setShowNuevoGrupo(false); setNg({ nombre: '', descripcion: '', autoUrl: '', acampeUrl: '', altitud: '', acampeObs: '' }); setNgFile(null); setNgPreview('')
@@ -119,7 +119,7 @@ export default function NuevaVia() {
     if (!lugarId || !grupoId) { toast('Seleccioná lugar y grupo', 'err'); return }
     setSaving(true)
     try {
-      let img = null; if (viaFile) img = await uploadImage(viaFile, 'imagenes')
+      let img = null; if (viaFile) img = await uploadImage(viaFile)
       await createVia({ lugar_id: lugarId, grupo_id: grupoId, nombre: via.nombre, numero: parseInt(via.numero) || null, equipador: via.equipador, temporada: via.temporada, grado: via.grado, grado_n: via.gradoN, tipo: via.tipo, express_min: parseInt(via.expressMin) || null, express_rec: parseInt(via.expressRec) || null, tiempo: via.tiempo, chapas: via.chapas, largo: via.largo, pie_via_url: via.pieViaUrl || null, video_via: ytEmbed(via.videoVia), video_aprox: ytEmbed(via.videoAprox), notas: via.notas, imagen: img })
       toast(`Vía "${via.nombre}" guardada`, 'ok')
       setVia({ nombre: '', numero: '', equipador: '', temporada: '', grado: '', gradoN: 0, tipo: 'Deportiva', expressMin: '', expressRec: '', tiempo: '', chapas: '', largo: '', pieViaUrl: '', videoVia: '', videoAprox: '', notas: '' })

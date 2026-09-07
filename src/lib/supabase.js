@@ -143,15 +143,28 @@ export async function deleteVia(id) {
   if (error) throw error
 }
 
-// ── STORAGE ───────────────────────────────────────────
-export async function uploadImage(file, bucket = 'imagenes') {
-  const ext = file.name.split('.').pop()
-  const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-  const { error } = await supabase.storage.from(bucket).upload(path, file)
-  if (error) throw error
-  const { data } = supabase.storage.from(bucket).getPublicUrl(path)
-  return data.publicUrl
+// ── STORAGE (Cloudinary) ─────────────────────────────
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+
+export async function uploadImage(file) {
+  const form = new FormData()
+  form.append('file', file)
+  form.append('upload_preset', UPLOAD_PRESET)
+  form.append('folder', 'escalada')
+
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    { method: 'POST', body: form }
+  )
+  if (!res.ok) {
+    const err = await res.json()
+    throw new Error(err.error?.message || 'Error subiendo imagen a Cloudinary')
+  }
+  const data = await res.json()
+  return data.secure_url
 }
+
 
 // ── HELPERS ───────────────────────────────────────────
 export function ytEmbed(url) {

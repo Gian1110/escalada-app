@@ -65,7 +65,7 @@ export default function AdminGestionar() {
       setSaving(true)
       try {
         let updates = { ...form }
-        if (imgFile) updates.imagen = await uploadImage(imgFile, 'imagenes')
+        if (imgFile) updates.imagen = await uploadImage(imgFile)
         if (type === 'provincia') await updateProvincia(item.id, { nombre: updates.nombre, descripcion: updates.descripcion, imagen: updates.imagen })
         if (type === 'lugar')    await updateLugar(item.id, { nombre: updates.nombre, zona: updates.zona, descripcion: updates.descripcion, maps_url: updates.maps_url, imagen: updates.imagen })
         if (type === 'grupo')    await updateGrupo(item.id, { nombre: updates.nombre, descripcion: updates.descripcion, altitud: updates.altitud, auto_url: updates.auto_url, acampe_url: updates.acampe_url, acampe_obs: updates.acampe_obs, imagen: updates.imagen })
