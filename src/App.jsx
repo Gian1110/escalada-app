@@ -1,14 +1,15 @@
+import ErrorBoundary from './components/ErrorBoundary.jsx'
+import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './lib/auth.jsx'
 import Layout from './components/Layout.jsx'
+import Explore from './pages/Explore.jsx'
 import Home from './pages/Home.jsx'
-import ProvinciaPage from './pages/Provincia.jsx'
-import LugarPage from './pages/Lugar.jsx'
-import GrupoPage from './pages/Grupo.jsx'
+import Destination from './pages/Destination.jsx'
 import ViaPage from './pages/Via.jsx'
-import Login from './pages/admin/Login.jsx'
-import AdminNuevaVia from './pages/admin/NuevaVia.jsx'
-import AdminGestionar from './pages/admin/Gestionar.jsx'
+const Login = lazy(() => import('./pages/admin/Login.jsx'))
+const AdminNuevaVia = lazy(() => import('./pages/admin/NuevaVia.jsx'))
+const AdminGestionar = lazy(() => import('./pages/admin/Gestionar.jsx'))
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
@@ -19,17 +20,20 @@ function ProtectedRoute({ children }) {
 
 export default function App() {
   return (
-    <Routes>
+    <ErrorBoundary><Suspense fallback={<div role="status" style={{padding:32}}>Cargando…</div>}><Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/provincia/:id" element={<ProvinciaPage />} />
-        <Route path="/lugar/:id" element={<LugarPage />} />
-        <Route path="/grupo/:id" element={<GrupoPage />} />
+        <Route path="/rutas" element={<Explore />} />
+        <Route path="/guardadas" element={<Explore savedOnly />} />
+        <Route path="*" element={<div style={{padding:40}}><h1>Página no encontrada</h1><a href="/">Volver al inicio →</a></div>} />
+        <Route path="/provincia/:id" element={<Destination key="provincia" level="provincia" />} />
+        <Route path="/lugar/:id" element={<Destination key="lugar" level="lugar" />} />
+        <Route path="/grupo/:id" element={<Destination key="grupo" level="grupo" />} />
         <Route path="/via/:id" element={<ViaPage />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/nueva" element={<ProtectedRoute><AdminNuevaVia /></ProtectedRoute>} />
         <Route path="/admin/gestionar" element={<ProtectedRoute><AdminGestionar /></ProtectedRoute>} />
       </Route>
-    </Routes>
+    </Routes></Suspense></ErrorBoundary>
   )
 }
