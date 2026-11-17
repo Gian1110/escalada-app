@@ -29,7 +29,7 @@ export default function Login() {
     <div style={{ maxWidth: '400px', margin: '4rem auto', padding: '0 1.5rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '2rem', letterSpacing: '0.06em' }}>
-          <span style={{ color: 'var(--accent)' }}>Escalada</span>NOA
+          <span style={{ color: 'var(--accent)' }}>Más que</span> Escalada
         </div>
         <div style={{ fontSize: '12px', color: 'var(--chalk-muted)', marginTop: '4px' }}>Panel de administración</div>
       </div>
