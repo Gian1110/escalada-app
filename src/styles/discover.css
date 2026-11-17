@@ -127,3 +127,5 @@
 .technical-chip { display:inline-block; padding:3px 9px; border-radius:20px; background:#e8eada; color:#46543a; font-size:12px; }
 
 .discovery { display:flow-root; }
+
+.account-page{max-width:640px;margin:0 auto;padding:64px 24px}.account-page h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.08;margin:16px 0}.account-page p{line-height:1.6;overflow-wrap:anywhere}.account-card{margin:28px 0;padding:28px;background:#fff;border:1px solid #d8d8ce;border-radius:18px}.account-card form{display:grid;gap:18px}.account-card label{display:grid;gap:8px;font-weight:600}.account-card input{width:100%;box-sizing:border-box;padding:12px;border:1px solid #9caa99;border-radius:8px;background:#fff;color:#262b24;font:inherit}.account-actions{display:grid;gap:16px;margin-top:24px}.account-actions button{justify-self:start;background:none;border:0;text-decoration:underline;font:inherit;cursor:pointer}.account-hint{font-size:.85rem}.account-page [role=alert]{color:#9b2626}.favorite-button:disabled{opacity:.5;cursor:wait}@media(max-width:600px){.account-card{padding:20px}.site-header nav{flex-wrap:wrap;justify-content:center;gap:8px 18px}}

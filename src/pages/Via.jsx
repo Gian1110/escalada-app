@@ -7,7 +7,7 @@ import { Page, Badge, GradeBadge, MediaBox, VideoFrame, WarnBox, Spinner } from 
 
 export default function ViaPage() {
   const { id } = useParams()
-  const { ids, toggle } = useFavorites()
+  const { ids, toggle, loading: favoritesLoading, error: favoritesError, retry: retryFavorites, pending } = useFavorites()
   const [via, setVia] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -45,7 +45,8 @@ export default function ViaPage() {
         <span style={{ color: 'var(--chalk-dim)' }}>{via.nombre}</span>
       </div>
 
-      <div className="via-title"><h1>{via.nombre}</h1><button className="action-button" aria-pressed={ids.includes(String(id))} onClick={() => toggle(id)}>{ids.includes(String(id)) ? "♥ Guardada" : "♡ Guardar vía"}</button></div>
+      {favoritesError && <p role="alert">{favoritesError} <button onClick={retryFavorites}>Reintentar</button></p>}
+      <div className="via-title"><h1>{via.nombre}</h1><button className="action-button" disabled={favoritesLoading || !!favoritesError || pending.includes(String(id))} aria-pressed={ids.includes(String(id))} onClick={() => toggle(id)}>{ids.includes(String(id)) ? "♥ Guardada" : "♡ Guardar vía"}</button></div>
 
       {/* Grade display */}
       <div style={{ background: 'var(--rock-card)', border: '1px solid var(--rock-border)', borderRadius: 'var(--rlg)', padding: '1.4rem', display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
