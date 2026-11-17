@@ -7,13 +7,13 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/*.png', 'icons/*.svg'],
+      includeAssets: ['icons/*.png', 'icons/*.svg', 'icons/*.jpg'],
       manifest: {
-        name: 'Escalada Argentina',
-        short_name: 'Escalada',
+        name: 'Más que Escalada',
+        short_name: 'Más que Escalada',
         description: 'Guía de escalada deportiva de Argentina',
-        theme_color: '#1e1e1b',
-        background_color: '#141412',
+        theme_color: '#f4f1e9',
+        background_color: '#f4f1e9',
         display: 'standalone',
         orientation: 'portrait',
         scope: '/',
@@ -38,6 +38,11 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // Cache de llamadas a Supabase (datos)
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.hostname === 'res.cloudinary.com',
+            handler: 'CacheFirst',
+            options: { cacheName: 'climbing-images', expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 }, cacheableResponse: { statuses: [0, 200] } }
+          },
           {
             // Google Fonts
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,

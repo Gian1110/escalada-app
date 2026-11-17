@@ -28,7 +28,7 @@ export default function OfflineBanner() {
         <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2"/>
         <path d="M8 5v4M8 10.5v1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
       </svg>
-      Sin conexión — mostrando datos guardados
+      Sin conexión — algunas páginas e imágenes pueden no estar disponibles
     </div>
   )
 }

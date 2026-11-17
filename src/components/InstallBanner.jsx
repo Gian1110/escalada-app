@@ -65,8 +65,8 @@ export default function InstallBanner() {
           </svg>
         </div>
         <div style={{ flex: 1, minWidth: '160px' }}>
-          <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--chalk)' }}>Instalar Escalada Argentina</div>
-          <div style={{ fontSize: '11px', color: 'var(--chalk-muted)', marginTop: '2px' }}>Accedé sin internet, directo desde tu pantalla de inicio</div>
+          <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--chalk)' }}>Instalar Más que Escalada</div>
+          <div style={{ fontSize: '11px', color: 'var(--chalk-muted)', marginTop: '2px' }}>Abrí la guía desde tu pantalla de inicio</div>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button onClick={install} style={{ background: 'var(--accent)', border: 'none', color: '#fff', padding: '8px 16px', borderRadius: 'var(--r)', fontSize: '12px', fontWeight: 500, cursor: 'pointer' }}>
