@@ -197,7 +197,7 @@ export function VideoFrame({ src }) {
       </div>
     )
   }
-  return <iframe src={src} style={{ width: '100%', aspectRatio: '16/9', border: 'none', display: 'block' }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+  return <iframe loading="lazy" title="Video de escalada" src={src} style={{ width: '100%', aspectRatio: '16/9', border: 'none', display: 'block' }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
 }
 
 export function ImageFrame({ src, alt }) {
