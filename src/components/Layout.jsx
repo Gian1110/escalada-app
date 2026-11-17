@@ -19,7 +19,7 @@ export default function Layout() {
     </header>
     {user && <nav className="admin-strip" aria-label="Administración"><Link to="/admin/nueva">Agregar vía</Link><Link to="/admin/gestionar">Gestionar contenido</Link><button onClick={logout}>Cerrar sesión</button></nav>}
     <main id="contenido" tabIndex="-1"><Outlet /></main>
-    <footer className="site-footer"><div><strong>MÁS QUE ESCALADA</strong><p>Roca, comunidad y próximas aventuras.</p></div><a href="https://www.instagram.com/masqueescalada/" target="_blank" rel="noopener noreferrer">Seguinos en Instagram ↗</a><div><Link to="/admin/login">Administración</Link><small>Desarrollado por Gian</small></div></footer>
+    <footer className="site-footer"><div><strong>MÁS QUE ESCALADA</strong><p>Roca, comunidad y próximas aventuras.</p></div><a href="https://www.instagram.com/masqueescalada/" target="_blank" rel="noopener noreferrer">Seguinos en Instagram ↗</a><div><Link to="/admin/login">Administración</Link></div></footer>
     <InstallBanner /><OfflineBanner />
   </div>
 }
