@@ -1,21 +1,26 @@
+import CroquisViewer from '../components/CroquisViewer.jsx'
+import { useFavorites } from '../lib/favorites.js'
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { getVia, gradeColor, gradoLabel } from '../lib/supabase.js'
-import { Page, Badge, GradeBadge, MediaBox, VideoFrame, ImageFrame, WarnBox, Spinner } from '../components/ui.jsx'
+import { useParams, Link } from 'react-router-dom'
+import { getVia, gradeColor } from '../lib/supabase.js'
+import { Page, Badge, GradeBadge, MediaBox, VideoFrame, WarnBox, Spinner } from '../components/ui.jsx'
 
 export default function ViaPage() {
   const { id } = useParams()
-  const navigate = useNavigate()
+  const { ids, toggle } = useFavorites()
   const [via, setVia] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let active = true
+    setLoading(true)
     async function load() {
-      try { setVia(await getVia(id)) }
-      catch (e) { console.error(e) }
-      finally { setLoading(false) }
+      try { const result = await getVia(id); if (active) setVia(result) }
+      catch (e) { if (active) setVia(null) }
+      finally { if (active) setLoading(false) }
     }
     load()
+    return () => { active = false }
   }, [id])
 
   if (loading) return <Spinner />
@@ -30,17 +35,17 @@ export default function ViaPage() {
   const pieViaUrl = via.pie_via_url
 
   return (
-    <Page>
+    <div className="route-detail"><Page>
       {/* Breadcrumb */}
       <div style={{ fontSize: '12px', color: 'var(--chalk-muted)', marginBottom: '0.5rem', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-        <span style={{ cursor: 'pointer' }} onClick={() => navigate('/rutas')}>Rutas</span>
-        {lugar && <><span>›</span><span style={{ cursor: 'pointer' }} onClick={() => navigate(`/lugar/${lugar.id}`)}>{lugar.nombre}</span></>}
-        {grupo && <><span>›</span><span style={{ cursor: 'pointer' }} onClick={() => navigate(`/grupo/${grupo.id}`)}>{grupo.nombre}</span></>}
+        <Link to="/rutas">Explorar vías</Link>
+        {lugar && <><span>›</span><Link to={`/lugar/${lugar.id}`}>{lugar.nombre}</Link></>}
+        {grupo && <><span>›</span><Link to={`/grupo/${grupo.id}`}>{grupo.nombre}</Link></>}
         <span>›</span>
         <span style={{ color: 'var(--chalk-dim)' }}>{via.nombre}</span>
       </div>
 
-      <h2 style={{ fontSize: '2.2rem', marginBottom: '1.25rem' }}>{via.nombre}</h2>
+      <div className="via-title"><h1>{via.nombre}</h1><button className="action-button" aria-pressed={ids.includes(String(id))} onClick={() => toggle(id)}>{ids.includes(String(id)) ? "♥ Guardada" : "♡ Guardar vía"}</button></div>
 
       {/* Grade display */}
       <div style={{ background: 'var(--rock-card)', border: '1px solid var(--rock-border)', borderRadius: 'var(--rlg)', padding: '1.4rem', display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
@@ -48,9 +53,9 @@ export default function ViaPage() {
         <div style={{ flex: 1, minWidth: '140px' }}>
           <div style={{ fontSize: '11px', color: 'var(--chalk-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Dificultad</div>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '5px' }}>
-            <GradeBadge n={via.grado_n || 0} />
-            <Badge variant={via.tipo === 'Top Rope' ? 'sky' : 'rock'}>{via.tipo || 'Deportiva'}</Badge>
-            {via.chapas && <Badge variant="rock">{via.chapas} chapas</Badge>}
+            <span className="technical-chip">{via.grado || "Sin grado"}</span>
+            <span className="technical-chip">{via.tipo || "Deportiva"}</span>
+            {via.chapas && <span className="technical-chip">{via.chapas} chapas</span>}
           </div>
           <div style={{ marginTop: '8px', height: '5px', background: 'var(--rock-surf)', borderRadius: '3px', overflow: 'hidden', width: '180px', maxWidth: '100%' }}>
             <div style={{ height: '100%', borderRadius: '3px', background: color, width: `${barW}%` }} />
@@ -69,27 +74,27 @@ export default function ViaPage() {
       </div>
 
       {/* Media grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
         <MediaBox title="Imagen – puntos de enganche">
-          <ImageFrame src={via.imagen} alt={via.nombre} />
+          <CroquisViewer src={via.imagen || grupo?.imagen} alt={via.nombre} />
         </MediaBox>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <MediaBox title="Video – recorrido de la vía">
+        {(via.video_via || via.video_aprox) && <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {via.video_via && <MediaBox title="Video – recorrido de la vía">
             <VideoFrame src={via.video_via} />
-          </MediaBox>
-          <MediaBox title="Video – aproximación desde acampe">
+          </MediaBox>}
+          {via.video_aprox && <MediaBox title="Video – aproximación desde acampe">
             <VideoFrame src={via.video_aprox} />
-          </MediaBox>
-        </div>
+          </MediaBox>}
+        </div>}
       </div>
 
       {via.notas && (
         <WarnBox>
           <strong style={{ color: 'var(--gold)' }}>Protecciones/notas: </strong>
-          {via.notas}
+          <span style={{whiteSpace:"pre-line"}}>{via.notas}</span>
         </WarnBox>
       )}
-    </Page>
+    </Page></div>
   )
 }
 
